@@ -1,4 +1,4 @@
-# Unreal-3D-Dungeon
+# Unity-2D-RPG
 
 このリポジトリでは、Unityを使用して制作した2DRPGゲームを紹介しています。
 
