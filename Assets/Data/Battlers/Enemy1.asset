@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a8a3280a971a543b7cb43208512625, type: 3}
+  m_Name: Enemy1
+  m_EditorClassIdentifier: 
+  name: "\u30B4\u30FC\u30B9\u30C8"
+  maxHP: 12
+  maxMP: 0
+  attack: 5
+  defence: 3
+  speed: 3
+  sprite: {fileID: 662666826, guid: 7f9b7726bb786cd45b014e2682864dba, type: 3}
+  learnableAttacks:
+  - moveBase: {fileID: 11400000, guid: 1788978e6cf41124bac9964d8c3a4635, type: 2}
+    level: 1
+  learnableMagics: []
+  getableItems:
+  - itemBase: {fileID: 11400000, guid: 70053fc875108d8468569ce93f73991a, type: 2}
+    probability: 30
+  exp: 5
