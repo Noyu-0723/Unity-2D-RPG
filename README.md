@@ -43,5 +43,11 @@ Unityで動作する、2DのRPGゲームです。
 
 ## 開発者について
 - **名前**: 野村佑哉  
-- **GitHub**: [Noyu-0723](https://github.com/Noyu-0723)  
-- **Email**: yuuya07237@gmail.com
+  **担当箇所**: 設計、コーディング、アセットの導入、レベルデザイン  
+  **GitHub**: [Noyu-0723](https://github.com/Noyu-0723)  
+  **Email**: yuuya07237@gmail.com
+
+- **名前**: 土居美咲  
+  **担当箇所**: マップの作成、ItemBox関連のコーディング  
+  **GitHub**: [doiminn](https://github.com/doiminn)  
+  **Email**: t5422043@fukuyama-u.ac.jp
