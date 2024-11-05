@@ -17,6 +17,7 @@ public class BattlerBase : ScriptableObject
     [SerializeField] List<LearnableMove> learnableMagics;
     [SerializeField] List<GetableItem> getableItems;
     [SerializeField] int exp;
+    public bool isRunable;
 
     public global::System.String Name { get => name; }
     public global::System.Int32 MaxHP { get => maxHP; }

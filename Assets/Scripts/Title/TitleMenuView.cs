@@ -4,12 +4,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class TitleMenuView : MonoBehaviour{
+    private PlayerController playerController;
+    private SaveLoadManager saveLoadManager;
+    private SaveData saveData;
 
     SelectableText[] selectableTexts;
     int selectedIndex;
 
     public void Start(){
-        // 自分の子要素で<SelectableText>コンポーネントを持っているものを集める
+        playerController = FindObjectOfType<PlayerController>();
+        if(playerController != null){
+            playerController.gameObject.SetActive(false);
+        }
+        saveLoadManager = GetComponent<SaveLoadManager>();
+        saveData = saveLoadManager.LoadGame();
         selectableTexts = GetComponentsInChildren<SelectableText>();
         selectedIndex = 0;
     }
@@ -17,9 +25,18 @@ public class TitleMenuView : MonoBehaviour{
     public void Update(){
         if(Input.GetKeyDown(KeyCode.Return)){
             if(selectedIndex == 0){
+                saveLoadManager.DeleteSaveData();
+                if(playerController != null){
+                    PlayerController.playerProgress = new List<string>[]{
+                        new List<string>(),
+                        new List<string>(),
+                        new List<string>()
+                    };
+                    Destroy(playerController.gameObject);
+                }
                 SceneManager.LoadScene("InputName");
-            }else if(selectedIndex == 1){
-                SceneManager.LoadScene("Dungeon2");
+            }else if(selectedIndex == 1 && saveData != null){
+                SceneManager.LoadScene(saveData.map);
             }
         }
 

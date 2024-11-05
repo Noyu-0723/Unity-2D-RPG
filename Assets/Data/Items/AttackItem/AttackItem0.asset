@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: AttackItem0
   m_EditorClassIdentifier: 
   name: "\u6295\u3052\u30CA\u30A4\u30D5"
-  power: 25
+  type: 0
+  isSave: 0
+  message: "\u6575\u306B\u5C0F\u30C0\u30E1\u30FC\u30B8\u3092\u4E0E\u3048\u308B"
+  power: 15

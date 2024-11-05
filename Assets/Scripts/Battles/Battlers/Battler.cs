@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class Battler{
     [SerializeField] BattlerBase _base;
     [SerializeField] int level;
     [SerializeField] int hasExp;
+    public int walkCount = 0;
+    public string map;
     [SerializeField] List<ItemBase> inventory = new List<ItemBase>();
     public BattlerBase Base { get => _base; }
     public global::System.Int32 Level { get => level; set => level = value; }
@@ -31,6 +34,7 @@ public class Battler{
     // 初期化(ゲーム開始時に一度だけ実行)
     public void Init(){
         // 覚える技から習得可能な技を生成
+        map = SceneManager.GetActiveScene().name;
         Attacks = new List<Move>();
         foreach(var learnableAttack in Base.LearnableAttacks){
             if(learnableAttack.Level <= level){
@@ -61,20 +65,44 @@ public class Battler{
         Speed = _base.Speed + _base.Speed * level / 10;
     }
     
-    public int TakeDamage(int attackPower, Battler attacker){
-        int damage = Mathf.Max(1, (attacker.Attack + attackPower) - Defence); 
+    public int TakeDamage(int attackPower, Battler attacker, int random, bool magic = false, int useMP = 0){
+        int damage;
+        if(magic){
+            damage = Mathf.Max(1, attackPower + Random.Range(0 - random, random));
+        }else{
+            damage = Mathf.Max(1, (attacker.Attack + attackPower + Random.Range(0 - random, random)) - Defence);
+        }
         HP = Mathf.Clamp(HP - damage, 0, MaxHP);
+        attacker.MP = Mathf.Clamp(attacker.MP - useMP, 0, attacker.MaxMP);
         return damage;
     }
 
-    public void Heal(int healPoint, int useMP){
-        HP = Mathf.Clamp(HP + healPoint, 0, MaxHP);
+    public int Heal(int healPoint, int useMP){
+        int value = (int)(healPoint * (Random.Range(85, 115) / 100));
+        HP = Mathf.Clamp(HP + value, 0, MaxHP);
         MP = Mathf.Clamp(MP - useMP, 0, MaxMP);
+        if(HP == MaxHP) value = -1;
+        return value;
     }
 
-    public Move GetRandomAttack(){
-        int r = Random.Range(0, Attacks.Count);
-        return Attacks[r];
+    public int Meditation(int magicPoint, int useMP){
+        int value = (int)(magicPoint * (Random.Range(85, 115) / 100));
+        MP = Mathf.Clamp(MP + value, 0, MaxMP);
+        if(MP == MaxMP) value = -1;
+        return value;
+    }
+
+    public Move GetRandomMove(){
+        int r = Random.Range(0, Attacks.Count + Magics.Count - 1);
+        if(r < Attacks.Count){
+            return Attacks[r];
+        }else{
+            if(Magics[r - Attacks.Count].Base.UseMP <= MP){
+                return Magics[r - Attacks.Count];
+            }else{
+                return Magics[Magics.Count - 1];
+            }
+        }
     }
 
     public string GetRandomItem(BattleUnit targetUnit){
@@ -90,7 +118,7 @@ public class Battler{
     }
 
     public bool IsLevelUp(){
-        if(HasExp >= level * 10 + (int)Mathf.Pow(level, 1.2f)){
+        if(HasExp >= level * 15 + (int)Mathf.Pow(level, 1.5f)){
             level++;
             return true;
         }

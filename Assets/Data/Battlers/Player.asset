@@ -12,21 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5a8a3280a971a543b7cb43208512625, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  name: "\u3042\u306A\u305F"
-  maxHP: 22
-  maxMP: 18
-  attack: 5
+  name: 
+  maxHP: 30
+  maxMP: 10
+  attack: 7
   defence: 3
-  speed: 3
+  speed: 5
   sprite: {fileID: 1574649263, guid: f7ddc3ec1b5c38b48b68111bab381781, type: 3}
   learnableAttacks:
   - moveBase: {fileID: 11400000, guid: 1788978e6cf41124bac9964d8c3a4635, type: 2}
     level: 1
   - moveBase: {fileID: 11400000, guid: 99018d36d69984e48865dc8c59c6f7db, type: 2}
     level: 5
+  - moveBase: {fileID: 11400000, guid: ad39bf7074af3b6438110717642b9fa4, type: 2}
+    level: 15
+  - moveBase: {fileID: 11400000, guid: 2b967a67cdf8e1149b43b12324915d8b, type: 2}
+    level: 30
   learnableMagics:
   - moveBase: {fileID: 11400000, guid: 61378852f41f44546a28be8171299d4b, type: 2}
-    level: 3
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 64547a38066630c45963ac52e964bb48, type: 2}
+    level: 2
+  - moveBase: {fileID: 11400000, guid: 3a3bf7c296511e7448eb259eeda14c7e, type: 2}
+    level: 10
   - moveBase: {fileID: 11400000, guid: 7fc87eaffac98b84d82f14aa1f0d2fb8, type: 2}
-    level: 7
-  exp: 0
+    level: 18
+  getableItems: []
+  exp: 1000
+  isRunable: 0

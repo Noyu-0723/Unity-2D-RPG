@@ -11,10 +11,10 @@ public class InputNameSystem : MonoBehaviour{
     [SerializeField] ResultNameUI resultNameUI;
 
     NameListUI nameListUI;
-
-    public static string playerNameOrigin = ""; // 変更の余地あり
+    public static string playerNameOrigin;
     
     private void Start(){
+        playerNameOrigin = ""; // 変更の余地あり
         nameListUI_A.Init();
         nameListUI_B.Init();
         resultNameUI.Init();
@@ -57,7 +57,7 @@ public class InputNameSystem : MonoBehaviour{
                 for(int i = 0; i < resultNameUI.currentNameIndex; i++){
                     playerNameOrigin += resultNameUI.playerNameArray[i];
                 }
-                SceneManager.LoadScene("Dungeon1");
+                SceneManager.LoadScene("1F");
             }
         }
     }

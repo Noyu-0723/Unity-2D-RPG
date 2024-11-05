@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: "\u3072\u3063\u304B\u304D"
   useMP: 0
-  power: 8
+  message: "\u92ED\u3044\u722A\u3092\u4F7F\u3063\u3066\u6575\u3092\u3072\u3063\u304B\u304F 
+    \u305D\u3053\u305D\u3053\u306E\u30C0\u30E1\u30FC\u30B8\u304C\u3067\u308B"
+  type: 0
+  power: 10
