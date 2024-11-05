@@ -24,9 +24,9 @@ public class ItemSelectionUI : MonoBehaviour
         uiSize.y = 33 + 30 * items.Count;
         itemsParent.sizeDelta = uiSize;
 
-        for(int i = 0; i < items.Count; i++){
+        foreach(Item item in items){
             SelectableText itemText = Instantiate(itemTextPrefab, itemsParent);
-            itemText.SetText(items[i].Base.Name);
+            itemText.SetText(item.Base.Name);
             selectableTexts.Add(itemText);
         }
     }

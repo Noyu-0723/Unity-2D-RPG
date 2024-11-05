@@ -10,6 +10,7 @@ public class MenuMagicSelectionUI : MonoBehaviour
     List<SelectableText> selectableTexts = new List<SelectableText>();
 
     int selectedIndex;
+    public List<Move> useableMoves;
     public global::System.Int32 SelectedIndex { get => selectedIndex; } // 他のスクリプトからも参照できるように
 
     public void Init(List<Move> moves){
@@ -20,16 +21,20 @@ public class MenuMagicSelectionUI : MonoBehaviour
     }
 
     void SetMovesUISize(List<Move> moves){
+        useableMoves = new List<Move>();
+        foreach(Move move in moves){
+            if(move.Base.Type == MoveBase.Types.UseableInMenu) useableMoves.Add(move);
+        }
         Vector2 uiSize = movesParent.sizeDelta;
-        uiSize.y = 33 + 30 * moves.Count;
+        uiSize.y = 33 + 30 * useableMoves.Count;
         movesParent.sizeDelta = uiSize;
 
-        for(int i = 0; i < moves.Count; i++){
+        for(int i = 0; i < useableMoves.Count; i++){
             SelectableText moveText = Instantiate(moveTextPrefab, movesParent);
-            if(moves[i].Base.UseMP == 0){
-                moveText.SetText(moves[i].Base.Name);
+            if(useableMoves[i].Base.UseMP == 0){
+                moveText.SetText(useableMoves[i].Base.Name);
             }else{
-                moveText.SetText($"{moves[i].Base.Name}({moves[i].Base.UseMP})");
+                moveText.SetText($"{useableMoves[i].Base.Name}({useableMoves[i].Base.UseMP})");
             }
             selectableTexts.Add(moveText);
         }

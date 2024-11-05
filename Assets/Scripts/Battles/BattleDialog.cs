@@ -7,8 +7,11 @@ public class BattleDialog : MonoBehaviour{
     // 1文字ずつメッセージを表示する
     [SerializeField] Text text;
     [SerializeField] float letterPerSecond;
+    private bool isDialogActive = false;
 
     public IEnumerator TypeDialog(string line, bool auto = true){
+        if(isDialogActive) yield break;
+        isDialogActive = true;
         text.text = "";
         foreach(char letter in line){
             text.text += letter;
@@ -20,5 +23,6 @@ public class BattleDialog : MonoBehaviour{
         }else{
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
         }
+        isDialogActive = false;
     }
 }

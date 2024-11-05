@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a8a3280a971a543b7cb43208512625, type: 3}
+  m_Name: BossEnemy2
+  m_EditorClassIdentifier: 
+  name: "\u30B0\u30EA\u30E0\u30EA\u30FC\u30D1\u30FC"
+  maxHP: 300
+  maxMP: 50
+  attack: 15
+  defence: 0
+  speed: 15
+  sprite: {fileID: 1963579534, guid: e83730b1490ce7449a3609e4f891179b, type: 3}
+  learnableAttacks:
+  - moveBase: {fileID: 11400000, guid: 1788978e6cf41124bac9964d8c3a4635, type: 2}
+    level: 1
+  learnableMagics:
+  - moveBase: {fileID: 11400000, guid: 64547a38066630c45963ac52e964bb48, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 3a3bf7c296511e7448eb259eeda14c7e, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 16362277f946c8a4bb894c390e79c8f3, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 054c842d993e31a4ab11f56c796290ca, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 92ebeec2db748144c9cb8800e2283059, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: cdfa8b6bc0268454c9f8844dfe66adec, type: 2}
+    level: 1
+  getableItems:
+  - itemBase: {fileID: 11400000, guid: e0bf6658076fd5c4e8ffcb1c3ed0d68b, type: 2}
+    probability: 100
+  exp: 200
+  isRunable: 0

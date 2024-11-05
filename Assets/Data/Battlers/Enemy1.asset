@@ -13,17 +13,20 @@ MonoBehaviour:
   m_Name: Enemy1
   m_EditorClassIdentifier: 
   name: "\u30B4\u30FC\u30B9\u30C8"
-  maxHP: 12
+  maxHP: 10
   maxMP: 0
-  attack: 5
-  defence: 3
-  speed: 3
+  attack: 3
+  defence: 7
+  speed: 7
   sprite: {fileID: 662666826, guid: 7f9b7726bb786cd45b014e2682864dba, type: 3}
   learnableAttacks:
+  - moveBase: {fileID: 11400000, guid: b1209994e50e17e4ab3870ac38c59912, type: 2}
+    level: 1
   - moveBase: {fileID: 11400000, guid: 1788978e6cf41124bac9964d8c3a4635, type: 2}
     level: 1
   learnableMagics: []
   getableItems:
   - itemBase: {fileID: 11400000, guid: 70053fc875108d8468569ce93f73991a, type: 2}
-    probability: 30
-  exp: 5
+    probability: 3
+  exp: 7
+  isRunable: 1

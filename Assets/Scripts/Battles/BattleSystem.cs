@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class BattleSystem : MonoBehaviour
 {
@@ -46,7 +47,8 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] BattleUnit playerUnit;
     [SerializeField] BattleUnit enemyUnit;
 
-    public UnityAction OnBattleOver;
+    public UnityAction<Battler> OnBattleOver;
+    public UnityAction OnGameOver;
 
     public void BattleUnder(Battler player, Battler enemy){
         state = State.Start;
@@ -71,7 +73,7 @@ public class BattleSystem : MonoBehaviour
         attackSelectionUI.DeleteMoveTexts();
         magicSelectionUI.DeleteMoveTexts();
         itemSelectionUI.DeleteItemTexts();
-        OnBattleOver?.Invoke();
+        OnBattleOver?.Invoke(enemyUnit.Battler);
     }
 
     void StateForActionSelection(){
@@ -101,10 +103,12 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator StateForMoveRunTurns(Move playerMove){
         state = State.RunTurns;
-        yield return RunMove(playerMove, playerUnit, enemyUnit);
-        yield return BattleWin();
+        if(playerMove != null){
+            yield return RunMove(playerMove, playerUnit, enemyUnit);
+            yield return BattleWin();
+        }
         
-        Move ememyMove = enemyUnit.Battler.GetRandomAttack();
+        Move ememyMove = enemyUnit.Battler.GetRandomMove();
         yield return RunMove(ememyMove, enemyUnit, playerUnit);
         yield return BattleLose();
         
@@ -114,10 +118,12 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator StateForItemUseTurns(Item playerItem){
         state = State.RunTurns;
-        yield return UseItem(playerItem, playerUnit, enemyUnit);
-        yield return BattleWin();
+        if(playerItem != null){
+            yield return UseItem(playerItem, playerUnit, enemyUnit);
+            yield return BattleWin();
+        }
         
-        Move ememyMove = enemyUnit.Battler.GetRandomAttack();
+        Move ememyMove = enemyUnit.Battler.GetRandomMove();
         yield return RunMove(ememyMove, enemyUnit, playerUnit);
         yield return BattleLose();
         
@@ -129,6 +135,7 @@ public class BattleSystem : MonoBehaviour
         string resultText;
         if(sourceUnit.Battler.NoMoveTurn > 0){
             resultText = $"{sourceUnit.Battler.Base.Name}は動けない…!";
+            sourceUnit.Battler.NoMoveTurn -= 1;
         }else{
             resultText = move.Base.RunMoveResult(sourceUnit, targetUnit);
         }
@@ -145,6 +152,7 @@ public class BattleSystem : MonoBehaviour
         string resultText;
         if(sourceUnit.Battler.NoMoveTurn > 0){
             resultText = $"{sourceUnit.Battler.Base.Name}は動けない…!";
+            sourceUnit.Battler.NoMoveTurn -= 1;
         }else{
             resultText = item.Base.UseItemResult(sourceUnit, targetUnit);
         }
@@ -154,6 +162,25 @@ public class BattleSystem : MonoBehaviour
 
         if(targetUnit.Battler.HP <= 0){
             state = State.BattleOver;
+        }
+    }
+
+    IEnumerator Escape(){
+        if(enemyUnit.Battler.Base.isRunable){
+            if(playerUnit.Battler.Base.Speed * (Random.Range(8, 11) / 10) >  enemyUnit.Battler.Base.Speed){
+                state = State.BattleOver;
+                yield return battleDialog.TypeDialog($"{playerUnit.Battler.Base.Name}は逃げ出した！", auto: false);
+                actionSelectionUI.Close();
+                BattleOver();
+            }else{
+                state = State.RunTurns;
+                actionSelectionUI.Close();
+                yield return battleDialog.TypeDialog($"{playerUnit.Battler.Base.Name}は逃げ出した！", auto: false);
+                yield return battleDialog.TypeDialog("しかし、まわりこまれてしまった", auto: false);
+                yield return StateForMoveRunTurns(null);
+            }
+        }else{
+            yield return battleDialog.TypeDialog("この敵からは逃げられそうにない…", auto: false);
         }
     }
 
@@ -188,6 +215,8 @@ public class BattleSystem : MonoBehaviour
         if(state == State.BattleOver){
             yield return battleDialog.TypeDialog($"{playerUnit.Battler.Base.Name}は力尽きてしまった", auto: false);
             BattleOver();
+            OnGameOver?.Invoke();
+            SceneManager.LoadScene("GameOver");
             yield break;
         }
     }
@@ -225,8 +254,7 @@ public class BattleSystem : MonoBehaviour
                 StateForSecondActionSelection();
             }else if(actionSelectionUI.SelectedIndex == 1){
                 // 逃げる
-                actionSelectionUI.Close();
-                BattleOver();
+                StartCoroutine(Escape());               
             }
         }
     }
@@ -289,6 +317,7 @@ public class BattleSystem : MonoBehaviour
             }
 
             Move playerMove = playerUnit.Battler.Magics[magicSelectionUI.SelectedIndex]; // 選択した技の取得
+            if(playerUnit.Battler.MP < playerMove.Base.UseMP) return;
 
             actionSelectionUI.Close();
             secondActionSelectionUI.Close();
@@ -314,7 +343,7 @@ public class BattleSystem : MonoBehaviour
 
             Item playerItem = playerUnit.Battler.Items[itemSelectionUI.SelectedIndex]; // 選択したアイテムの取得
 
-            if(playerItem.Base.Type == 0){
+            if(playerItem.Base.Type != ItemBase.Types.Key){
                 // アイテムの削除
                 playerUnit.Battler.Items.Remove(playerItem);
                 // アイテムの再生成     

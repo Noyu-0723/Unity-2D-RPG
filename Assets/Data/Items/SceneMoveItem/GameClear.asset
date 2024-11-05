@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c5032e74c7e62b4c96be269c0aff9d5, type: 3}
+  m_Name: GameClear
+  m_EditorClassIdentifier: 
+  name: "\u6700\u5F8C\u306E\u523B\u5370"
+  type: 4
+  isSave: 1
+  message: "\u4F7F\u7528\u3059\u308B\u3068\u4F55\u304B\u304C\u8D77\u304D\u308B\u304B\u3082...? 
+    \u203B\u4F7F\u7528\u6642\u3001\u81EA\u52D5\u7684\u306B\u30BB\u30FC\u30D6\u3055\u308C\u307E\u3059"
+  nextArea: GameClear

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 208fafcb48742424889de4e62d173eea, type: 3}
   m_Name: Attack0
   m_EditorClassIdentifier: 
-  name: "\u653B\u6483"
+  name: "\u4F53\u5F53\u305F\u308A"
   useMP: 0
-  power: 4
+  message: "\u4F53\u5F53\u305F\u308A\u3092\u3059\u308B  \u305D\u3093\u306A\u306B\u5F37\u304F\u306F\u306A\u3044"
+  type: 0
+  power: 6

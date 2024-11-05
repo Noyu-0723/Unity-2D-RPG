@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c91b13e0a9d4a924e85957aaefbde208, type: 3}
   m_Name: DebuffItem0
   m_EditorClassIdentifier: 
-  name: "\u6295\u3052\u7E04"
-  type: 0
+  name: "\u6492\u83F1"
+  type: 2
+  isSave: 0
+  message: "\u6575\u306E\u52D5\u304D\u3092\u4E00\u5B9A\u30BF\u30FC\u30F3\u963B\u5BB3\u3059\u308B"
   value: 2
