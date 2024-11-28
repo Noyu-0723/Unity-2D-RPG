@@ -1,6 +1,7 @@
 # Unity-2D-RPG
 
 このリポジトリでは、Unityを使用して制作した2DRPGゲームを紹介しています。
+[こちら](https://drive.google.com/file/d/11lrIqBaID6GYumtQGNKdag7E_oHNGQ8n/view?usp=drive_link)からプレイ動画を視聴できます。
 
 ## 目次
 1. [制作期間](#制作期間)
